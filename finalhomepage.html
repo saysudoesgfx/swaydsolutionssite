@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SWAYD SOLUTIONS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/modern-warfare');
+
+                
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Modern Warfare', sans-serif; 
+      font-size: smaller;                                      
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+.scroll-banner {
+  position: relative; 
+  width: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.3); 
+  border-top: 1px solid rgba(0, 246, 255, 0.3);
+  border-bottom: 1px solid #ff00007e;
+  box-shadow: 0 0 10px #ff00007e;
+  padding: 10px 0;
+  backdrop-filter: blur(5px); 
+  z-index: 1;
+}
+
+    .scroll-text {
+      display: inline-block;
+      white-space: nowrap;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 1em;
+      text-shadow: 0 0 5px #000000;
+      animation: scrollBanner 25s linear infinite;
+    }
+
+    @keyframes scrollBanner {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: url('download.png') no-repeat center bottom;
+      background-size: contain;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(to bottom right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 40%, rgba(255, 0, 0, 0.397) 55%, rgba(146, 7, 7, 0.7) 75%, #c00505b0 100%);
+      z-index: -2;
+    }
+
+   
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-bottom: 1px solid #ff00008e;;
+      box-shadow: 0 4px 15px #ff00007e;
+      z-index: 999;
+      position: relative;
+    }
+    .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      text-shadow: 0 0 5px #fff;
+    }
+
+    nav a:hover {
+      color: #ffff;
+      text-shadow: 0 0 8px #ffff;
+    }
+
+    .rating {
+      font-size: 0.9em;
+      text-shadow: 0 0 5px #fff;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px 40px;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      color: #ccc;
+      margin-bottom: 40px;
+    }
+.review-scroll-wrapper {
+  overflow: hidden;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.review-scroll {
+  display: flex;
+  animation: scrollReviews 40s linear infinite;
+  gap: 15px;
+  padding: 20px;
+}
+
+
+.review-card {
+  min-width: 220px;
+  background: radial-gradient(to bottom right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 40%, rgba(255, 0, 0, 0.397) 55%, rgba(146, 7, 7, 0.7) 75%, #c00505b0 100%);
+  color: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #ff00007e;
+  font-style: bold;
+  text-align: center;
+  flex-shrink: 0;
+  text-shadow: 0 0 5px #fff;
+}
+
+
+
+
+@keyframes scrollReviews {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.stars {
+  display: block;
+  margin-top: 8px;
+  color: #ffffff;
+  text-shadow: 0 0 5px #ff0000;
+  font-size: 1em;
+}
+
+.btn {
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #ffff;
+  padding: 12px 24px;
+  margin: 10px;
+  text-shadow: 0 0 5px #ffff;
+  box-shadow: 0 0 10px #ff00007e;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 30px; 
+}
+
+
+    .btn:hover {
+      background-color: #ffffff;
+      color: #000000;
+      box-shadow: 0 0 20px #ffffff;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2em;
+      margin-top: 60px;
+      text-shadow: 0 0 8px #ffff;
+    }
+
+    .product-scroll-wrapper {
+      overflow: hidden;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    .product-scroll {
+      display: flex;
+      animation: scrollProducts 40s linear infinite;
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .typewriter {
+  overflow: hidden;
+  border-right: .15em solid rgb(255, 10, 10); /* Cursor effect */
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .15em;
+  animation: typing 2.5s steps(30, end), blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  100% { border-color: rgba(255, 0, 0, 0.568) }
+}
+
+
+    .product-card {
+      min-width: 180px;
+      height: 160px;
+      background: radial-gradient(to bottom right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 40%, rgba(255, 0, 0, 0.397) 55%, rgba(146, 7, 7, 0.7) 75%, #c00505b0 100%);
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ff00007e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    @keyframes scrollProducts {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .reverse-review-cards{
+      display: flex;
+      animation: reversescrollReviews 40s linear infinite;
+      gap: 15px;
+      padding: 20px;
+       }
+
+     @keyframes reversescrollReviews{
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+
+
+    .footer {
+      text-align: center;
+      padding: 30px 0;
+      font-size: 0.9em;
+      text-shadow: 0 0 5px #fff;
+      background-color: rgba(0, 0, 0, 0.37);
+      margin-top: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .top-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .product-card {
+        min-width: 140px;
+        height: 140px;
+        font-size: 0.9em;
+      }
+      
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="overlay"></div>
+ <!-- Scrolling Banner -->
+  <div class="scroll-banner">
+    <div class="scroll-text">
+| MWII/MWIII LOBBIES COMING SOON | CSII CHAIR STILL UNDETECTED | MWI AIO NOW AVAILIABLE | CAMO HARD UNLOCKS AVAILIABLE
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="top-nav">
+    <div class="logo">S W A Y D</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Products</a>
+      <a href="#">Reviews</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="rating">
+      <span><i class="fas fa-star"></i> 5</span>
+      <span><i class="fas fa-star"></i> 5</span>
+      <span><i class="fas fa-star"></i> 5</span>
+      <span><i class="fas fa-star"></i> 5</span>
+      <span>REVIEWS</span>
+    </div>
+  </div>
+
+  
+
+  <!-- Hero Section -->
+  <div class="typewriter hero">
+    <h1>WELCOME TO SWAYD SOLUTIONS</h1>
+    <p>Secure. Fast. Undetected.</p>
+    <button class="btn"><i class="fa-solid fa-cart-shopping"></i> Shop Now</button>
+    <button class="btn">20% off for members</button>
+  </section>
+  </div>
+
+ <!-- Product Section -->
+<div class="section-title"> </div>
+<div class="product-scroll-wrapper">
+  <div class="product-scroll">
+    <div class="product-card">BOT LOBBIES</div>
+    <div class="product-card">MWI AIO</div>
+    <div class="product-card">CSII CHAIR</div>
+    <div class="product-card">CAMO HARD UNLOCKS</div>
+    <div class="product-card">MWIII EXTERNAL</div>
+    
+    <!-- carousel of the product cards-->
+    <div class="product-card">BOT LOBBIES</div>
+    <div class="product-card">MWI AIO</div>
+    <div class="product-card">CSII CHAIR</div>
+    <div class="product-card">CAMO HARD UNLOCKS</div>
+    <div class="product-card">MWIII EXTERNAL</div>
+  </div>
+</div>
+
+<!-- Reviews Section -->
+<div class="section-title">our reviews (using our Anonymous review system.)</div>
+<div class="review-scroll-wrapper">
+  <div class="review-scroll">
+    <div class="review-card">
+      "Amazing service!" – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+    </div>
+    <div class="review-card">
+      "Been using swayd for a month. Haven't been banned once" – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+    </div>
+    <div class="review-card">
+      "Highly recommend SWAYD." – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+    </div>
+    <div class="review-card">
+      "Great support." – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+    </div>
+    <div class="review-card">
+      "Worth every cent." – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+    </div>
+    <div class="review-card">
+      "Undetected and reliable." – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+    </div>
+    <div class="review-card">
+      "Got everything in the game with one press of a button" – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+    </div>
+    <div class="review-card">
+      "5 stars all the way." – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+    </div>
+    <div class="review-card">
+      "Only bought a week key, Will buy again!" – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+    </div>
+  </div>
+</div>
+
+<!-- Reverse Reviews -->
+<div class="review-scroll-wrapper">
+  <div class="reverse-review-cards">
+    <div class="review-card">
+      "Amazing service!" – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+    </div>
+    <div class="review-card">
+      "Been using swayd for a month. Haven't been banned once" – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+    </div>
+    <div class="review-card">
+      "Highly recommend SWAYD." – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+    </div>
+    <div class="review-card">
+      "Great support." – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+    </div>
+    <div class="review-card">
+      "Worth every cent." – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+    </div>
+    <div class="review-card">
+      "Undetected and reliable." – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+    </div>
+    <div class="review-card">
+      "Got everything in the game with one press of a button" – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+    </div>
+    <div class="review-card">
+      "5 stars all the way." – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+    </div>
+    <div class="review-card">
+      "Only bought a week key, Will buy again!" – Anonymous<br>
+      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy;  SWAYD SOLUTIONS. All rights reserved.
+  </div>
+</body>
+</html>
