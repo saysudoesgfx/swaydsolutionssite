@@ -1,43 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- ============================= -->
+  <!-- Meta                          -->
+  <!-- ============================= -->
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-
+  <!-- ============================= -->
+  <!-- Title & Fonts                 -->
+  <!-- ============================= -->
   <title>SWAYD SOLUTIONS</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 
+  <!-- ============================= -->
+  <!-- Styles                        -->
+  <!-- ============================= -->
   <style>
+    /* =========================================================
+       - Dark UI
+       - Neon gradients
+       - Glassy cards
+       - Inter font
+       - CSS variables
+       - Accessible focus states
+       - Responsive grid
+       - Pure CSS mobile menu toggle
+       ========================================================= */
 
+    /* -----------------------------
+       Theme variables
+       ----------------------------- */
     :root {
-
+      /* Brand Gradient */
       --gradient-start: #000000;         
       --gradient-end:   #0b42a894;         
 
+      /* Base Colors */
+      --bg-dark:        #0E0E10;         /* page background */
+      --bg-card:        #16161A;         /* card background */
+      --bg-elev-2:      #1E1E24;         /* slightly lighter elevation */
+      --bg-hero-overlay:#3700ff69;       /* overlay alpha for hero content */
 
-      --bg-dark:        #0E0E10;        
-      --bg-card:        #16161A;        
-      --bg-elev-2:      #1E1E24;        
-      --bg-hero-overlay:#3700ff69;      
-
-    
+      /* Typography */
       --text-primary:   #FFFFFF;
       --text-muted:     #B8B8C6;
       --text-dim:       #8A8AA3;
 
-      
-      --accent:         #00ccff;        
-      --accent-2:       #00E5FF;         
-      --accent-3:       #A3FF12;         
+      /* Accents */
+      --accent:         #00ccff;         /* neon blue */
+      --accent-2:       #00E5FF;         /* neon cyan */
+      --accent-3:       #A3FF12;         /* neon lime */
 
-      
+      /* Shadows & Lines */
       --line-soft:      #242433;
       --line-strong:    #0000ca;
       --shadow-blue:    rgba(0, 38, 255, 0.3);
       --shadow-cyan:    rgba(0,229,255,0.25);
 
-
+      /* Sizing */
       --max-width:      1200px;
       --radius-sm:      8px;
       --radius-md:      20px;
@@ -50,14 +71,16 @@
       --pad:            1.25rem;
       --pad-lg:         2rem;
 
-  
+      /* Transitions */
       --transition:     220ms ease;
 
-     
+      /* Focus Outline */
       --focus-outline:  2px solid #00E5FF;
     }
 
-
+    /* -----------------------------
+       Reset
+       ----------------------------- */
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
     img, svg { display: block; max-width: 100%; }
@@ -66,7 +89,9 @@
     button { font: inherit; cursor: pointer; }
     input, select, textarea { font: inherit; }
 
-    
+    /* -----------------------------
+       Base
+       ----------------------------- */
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
@@ -75,19 +100,19 @@
       line-height: 1.65;
     }
 
- 
+    /* Container */
     .container {
       width: 92%;
       max-width: var(--max-width);
       margin: 0 auto;
     }
 
-   
+    /* Utility: Sections */
     section { padding: 4.5rem 0; }
     .section-tight { padding: 2.5rem 0; }
     .section-hero { padding: 6rem 0 4rem; }
 
-
+    /* Utility: Flex & Grid */
     .flex { display: flex; gap: var(--gap); }
     .flex-center { display: flex; align-items: center; justify-content: center; }
     .grid { display: grid; gap: var(--gap-lg); }
@@ -101,10 +126,11 @@
       .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
     }
 
+    /* Utility: Text */
     .muted { color: var(--text-muted); }
     .dim { color: var(--text-dim); }
 
-
+    /* Utility: Card */
     .card {
       background: var(--bg-card);
       border: 1px solid var(--line-soft);
@@ -118,7 +144,7 @@
       border-color: var(--line-strong);
     }
 
-   
+    /* Utility: Badges */
     .badge {
       display: inline-flex;
       align-items: center;
@@ -134,7 +160,7 @@
     .badge-cyan { color: #c8f6ff; border-color: #19333a; }
     .badge-lime { color: #e9ffc4; border-color: #2d3a19; }
 
-    
+    /* Utility: Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -169,10 +195,12 @@
     }
     .btn-ghost:hover { background: rgba(255,255,255,0.12); }
 
-  
+    /* Focus styles */
     :focus-visible { outline: var(--focus-outline); outline-offset: 2px; }
 
-   
+    /* -----------------------------
+       Navbar
+       ----------------------------- */
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -212,7 +240,7 @@
     }
     .nav-links a:hover { background: rgba(255,255,255,0.07); color: #fff; }
 
-    
+    /* Mobile Menu Toggle (CSS-only) */
     .nav-toggle { display: none; }
     .nav-toggle-label {
       display: none;
@@ -240,15 +268,18 @@
       .nav-toggle:checked ~ .nav-menu { display: block; }
     }
 
- 
+    /* Spacer to account for fixed nav */
     .nav-spacer { height: 64px; }
 
-  
+    /* -----------------------------
+       Hero
+       ----------------------------- */
     .hero {
       position: relative;
       min-height: 70vh;
       display: grid;
       place-items: center;
+      /* Glow gradient background */
       background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     }
     .hero::before {
@@ -303,6 +334,9 @@
       margin-top: 1rem;
     }
 
+    /* -----------------------------
+       Marquee / Status strip
+       ----------------------------- */
     .status-strip {
       border-top: 1px solid var(--line-soft);
       border-bottom: 1px solid var(--line-soft);
@@ -335,7 +369,9 @@
       .status-inner { grid-template-columns: 1fr; }
     }
 
-   
+    /* -----------------------------
+       Marketplace grid
+       ----------------------------- */
     .section-header {
       display: flex;
       align-items: flex-end;
@@ -392,7 +428,9 @@
     .product-meta { margin-top: 0.75rem; color: var(--text-dim); font-size: 0.92rem; }
     .product-actions { margin-top: 1rem; display: flex; gap: var(--gap); }
 
-    
+    /* -----------------------------
+       Stats strip
+       ----------------------------- */
     .stats {
       background: linear-gradient(180deg, #12121a, #171723);
       border: 1px solid var(--line-soft);
@@ -418,7 +456,9 @@
     .stat .kpi { font-size: 1.75rem; font-weight: 800; letter-spacing: 0.5px; }
     .stat .label { color: var(--text-muted); margin-top: 0.35rem; }
 
-  
+    /* -----------------------------
+       Testimonials
+       ----------------------------- */
        .testimonials {
          max-height: 300px;
          overflow: hidden;
@@ -460,7 +500,9 @@
     .testimonial .body { color: #f4f4f9; }
     .testimonial .meta { margin-top: 0.75rem; color: var(--text-muted); font-size: 0.9rem; }
 
-  
+    /* -----------------------------
+       Pricing
+       ----------------------------- */
     .pricing-grid {
       display: grid; gap: var(--gap-lg);
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -503,7 +545,9 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
     }
 
-
+    /* -----------------------------
+       FAQ (CSS accordion)
+       ----------------------------- */
     .faq {
       display: grid; gap: var(--gap);
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -539,7 +583,9 @@
       border-top: 1px dashed var(--line-soft);
     }
 
-
+    /* -----------------------------
+       Status banner
+       ----------------------------- */
     .status-banner {
       display: flex; align-items: center; gap: var(--gap);
       padding: var(--pad);
@@ -556,7 +602,9 @@
     }
     .status-pill .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #00E5FF; box-shadow: 0 0 12px #00E5FF; }
 
-
+    /* -----------------------------
+       Discord CTA
+       ----------------------------- */
     .cta {
       text-align: center;
       background: linear-gradient(135deg, var(--gradient-end), var(--gradient-start));
@@ -573,7 +621,9 @@
     .cta h2 { font-size: clamp(1.35rem, 3vw, 1.85rem); margin-bottom: 0.5rem; }
     .cta p { color: #f5f5fb; margin-bottom: 1rem; }
 
-
+    /* -----------------------------
+       Footer
+       ----------------------------- */
     .footer {
       background: var(--bg-card);
       border-top: 1px solid var(--line-soft);
@@ -601,7 +651,9 @@
     }
     .copyright { color: var(--text-muted); }
 
-
+    /* -----------------------------
+       Media queries (extras)
+       ----------------------------- */
     @media (max-width: 1040px) {
       .hero-content { padding: 1.5rem; }
       .brand { font-size: 1rem; }
@@ -615,6 +667,9 @@
 
 <body>
 
+  <!-- ============================= -->
+  <!-- Navbar                        -->
+  <!-- ============================= -->
   <header class="nav">
     <div class="container nav-inner">
       <a href="#" class="brand">
@@ -633,7 +688,7 @@
           <a href="#login" class="btn btn-outline" style="padding:0.5rem 0.9rem;">Login</a>
         </div>
 
-       
+        <!-- Mobile Toggle -->
         <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle menu"/>
         <label for="nav-toggle" class="nav-toggle-label">
           <span>Menu</span>
@@ -647,7 +702,9 @@
   </header>
   <div class="nav-spacer" aria-hidden="true"></div>
 
-
+  <!-- ============================= -->
+  <!-- Hero                          -->
+  <!-- ============================= -->
   <section class="hero section-hero" id="home">
     <div class="container hero-content">
       <div class="eyebrow">
@@ -656,7 +713,7 @@
         <span class="dim">• Undetectable tools • 24/7 support</span>
       </div>
 
-      <h1>Undetectable performance with a Glow-level experience</h1>
+      <h1>SWAYD SOLUTIONS</h1>
       <p>Premium tools, HWID spoofers, and feature-rich overlays. Built for reliability, backed by fast support.</p>
 
       <div class="hero-actions">
@@ -666,7 +723,9 @@
     </div>
   </section>
 
-
+  <!-- ============================= -->
+  <!-- Status strip                  -->
+  <!-- ============================= -->
   <div class="status-strip">
     <div class="container status-inner">
       <div class="status-item">
@@ -687,7 +746,9 @@
     </div>
   </div>
 
-
+  <!-- ============================= -->
+  <!-- Marketplace                   -->
+  <!-- ============================= -->
   <section id="store">
     <div class="container">
       <div class="section-header">
@@ -703,7 +764,7 @@
       </div>
 
       <div class="market-grid">
-        
+        <!-- Product 1 -->
         <article class="product-card">
           <div class="product-media">BO6</div>
           <div class="product-body">
@@ -717,7 +778,7 @@
           </div>
         </article>
 
-       
+        <!-- Product 2 -->
         <article class="product-card">
           <div class="product-media">Fortnite</div>
           <div class="product-body">
@@ -731,7 +792,7 @@
           </div>
         </article>
 
-        
+        <!-- Product 3 -->
         <article class="product-card">
           <div class="product-media">Spoofer</div>
           <div class="product-body">
@@ -745,7 +806,7 @@
           </div>
         </article>
 
-      
+        <!-- Product 4 -->
         <article class="product-card">
           <div class="product-media">Valorant</div>
           <div class="product-body">
@@ -759,7 +820,7 @@
           </div>
         </article>
 
-        
+        <!-- Product 5 -->
         <article class="product-card">
           <div class="product-media">Other</div>
           <div class="product-body">
@@ -776,7 +837,9 @@
     </div>
   </section>
 
-
+  <!-- ============================= -->
+  <!-- Stats                         -->
+  <!-- ============================= -->
   <section class="section-tight">
     <div class="container stats" aria-label="Key metrics">
       <div class="stat">
@@ -798,7 +861,9 @@
     </div>
   </section>
 
-
+  <!-- ============================= -->
+  <!-- Reviews / Testimonials        -->
+  <!-- ============================= -->
   <section id="reviews">
     <div class="container">
       <div class="section-header">
@@ -826,7 +891,9 @@
     </div>
   </section>
 
-
+  <!-- ============================= -->
+  <!-- Features                      -->
+  <!-- ============================= -->
   <section id="features">
     <div class="container">
       <div class="section-header">
@@ -857,7 +924,9 @@
     </div>
   </section>
 
-
+  <!-- ============================= -->
+  <!-- Pricing                       -->
+  <!-- ============================= -->
   <section id="pricing">
     <div class="container">
       <div class="section-header">
@@ -920,7 +989,9 @@
     </div>
   </section>
 
-
+  <!-- ============================= -->
+  <!-- Status banner                 -->
+  <!-- ============================= -->
   <section id="status" class="section-tight">
     <div class="container status-banner">
       <div class="status-pill">
@@ -935,7 +1006,9 @@
     </div>
   </section>
 
-
+  <!-- ============================= -->
+  <!-- FAQ                           -->
+  <!-- ============================= -->
   <section id="faq">
     <div class="container">
       <div class="section-header">
@@ -970,7 +1043,9 @@
     </div>
   </section>
 
-
+  <!-- ============================= -->
+  <!-- Discord CTA                   -->
+  <!-- ============================= -->
   <section id="discord" class="cta">
     <div class="container">
       <h2>Join the Swayd solutions community</h2>
@@ -982,10 +1057,12 @@
     </div>
   </section>
 
-
+  <!-- ============================= -->
+  <!-- Footer                        -->
+  <!-- ============================= -->
   <footer class="footer">
     <div class="container footer-inner">
-  
+      <!-- Column: Brand -->
       <div>
         <div class="brand" style="margin-bottom:0.75rem;">
           <span class="logo-dot" aria-hidden="true"></span>
@@ -998,7 +1075,7 @@
         </div>
       </div>
 
-    
+      <!-- Column: Store -->
       <div>
         <h4>Store</h4>
         <ul>
@@ -1010,6 +1087,7 @@
         </ul>
       </div>
 
+      <!-- Column: Resources -->
       <div>
         <h4>Resources</h4>
         <ul>
@@ -1021,6 +1099,7 @@
         </ul>
       </div>
 
+      <!-- Column: Company -->
       <div>
         <h4>Company</h4>
         <ul>
@@ -1045,6 +1124,9 @@
     </div>
   </footer>
 
+  <!-- ============================= -->
+  <!-- Optional: Semantic anchors    -->
+  <!-- ============================= -->
   <a id="login" href="#" aria-hidden="true" style="position:absolute; top:-100px;"></a>
 
 </body>
