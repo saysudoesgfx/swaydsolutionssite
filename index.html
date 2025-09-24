@@ -459,6 +459,21 @@
     /* -----------------------------
        Testimonials
        ----------------------------- */
+       .testimonials {
+         max-height: 300px;
+         overflow: hidden;
+         position: relative;
+}
+
+        .testimonials article {
+          animation: scrollleft 15s linear infinite;
+}
+
+@keyframes scrollleft {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
     .testimonials {
       display: grid; gap: var(--gap-lg);
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -707,7 +722,7 @@
       </div>
 
       <h1>Undetectable performance with a Glow-level experience</h1>
-      <p>Premium tools, HWID spoofers, and feature-rich overlays. Built for reliability, backed by fast support, wrapped in a neon-modern design.</p>
+      <p>Premium tools, HWID spoofers, and feature-rich overlays. Built for reliability, backed by fast support.</p>
 
       <div class="hero-actions">
         <a href="#store" class="btn btn-primary">Browse store</a>
@@ -892,7 +907,7 @@
       <div class="section-header">
         <div>
           <h2>Why choose swayd?</h2>
-          <p class="section-sub">Reliability, safety-conscious design, and fast support — wrapped in a Glow-grade UI.</p>
+          <p class="section-sub">Reliability, safety-conscious design, and fast support.</p>
         </div>
         <div class="flex">
           <span class="badge badge-pink">Privacy-first</span>
@@ -1061,7 +1076,7 @@
           <span class="logo-dot" aria-hidden="true"></span>
           <span>SWAYD SOLUTIONS</span>
         </div>
-        <p class="muted">A Glow-inspired, modern interface for a fast, reliable marketplace experience.</p>
+        <p class="muted">fast, reliable marketplace experience.</p>
         <div style="margin-top:1rem;" class="flex">
           <span class="badge badge-cyan">Secure checkout</span>
           <span class="badge badge-pink">Instant delivery</span>
