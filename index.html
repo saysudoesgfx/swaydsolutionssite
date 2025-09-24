@@ -1,442 +1,1126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ============================= -->
+  <!-- Meta                          -->
+  <!-- ============================= -->
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- ============================= -->
+  <!-- Title & Fonts                 -->
+  <!-- ============================= -->
   <title>SWAYD SOLUTIONS</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+  <!-- ============================= -->
+  <!-- Styles                        -->
+  <!-- ============================= -->
   <style>
-    @import url('https://fonts.cdnfonts.com/css/modern-warfare');
+    /* =========================================================
+       - Dark UI
+       - Neon gradients
+       - Glassy cards
+       - Inter font
+       - CSS variables
+       - Accessible focus states
+       - Responsive grid
+       - Pure CSS mobile menu toggle
+       ========================================================= */
 
-                
+    /* -----------------------------
+       Theme variables
+       ----------------------------- */
+    :root {
+      /* Brand Gradient */
+      --gradient-start: #000000;         
+      --gradient-end:   #0b42a894;         
+
+      /* Base Colors */
+      --bg-dark:        #0E0E10;         /* page background */
+      --bg-card:        #16161A;         /* card background */
+      --bg-elev-2:      #1E1E24;         /* slightly lighter elevation */
+      --bg-hero-overlay:#3700ff69;       /* overlay alpha for hero content */
+
+      /* Typography */
+      --text-primary:   #FFFFFF;
+      --text-muted:     #B8B8C6;
+      --text-dim:       #8A8AA3;
+
+      /* Accents */
+      --accent:         #00ccff;         /* neon blue */
+      --accent-2:       #00E5FF;         /* neon cyan */
+      --accent-3:       #A3FF12;         /* neon lime */
+
+      /* Shadows & Lines */
+      --line-soft:      #242433;
+      --line-strong:    #0000ca;
+      --shadow-blue:    rgba(0, 38, 255, 0.3);
+      --shadow-cyan:    rgba(0,229,255,0.25);
+
+      /* Sizing */
+      --max-width:      1200px;
+      --radius-sm:      8px;
+      --radius-md:      20px;
+      --radius-lg:      20px;
+      --gap-xs:         0.5rem;
+      --gap-sm:         0.75rem;
+      --gap:            1rem;
+      --gap-md:         1.5rem;
+      --gap-lg:         2rem;
+      --pad:            1.25rem;
+      --pad-lg:         2rem;
+
+      /* Transitions */
+      --transition:     220ms ease;
+
+      /* Focus Outline */
+      --focus-outline:  2px solid #00E5FF;
+    }
+
+    /* -----------------------------
+       Reset
+       ----------------------------- */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img, svg { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul, ol { margin: 0; padding: 0; list-style: none; }
+    button { font: inherit; cursor: pointer; }
+    input, select, textarea { font: inherit; }
+
+    /* -----------------------------
+       Base
+       ----------------------------- */
+    html { scroll-behavior: smooth; }
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Modern Warfare', sans-serif; 
-      font-size: smaller;                                      
-      background-color: #000;
-      color: #fff;
-      overflow-x: hidden;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.65;
     }
 
-.scroll-banner {
-  position: relative; 
-  width: 100%;
-  overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.3); 
-  border-top: 1px solid rgba(0, 246, 255, 0.3);
-  border-bottom: 1px solid #ff00007e;
-  box-shadow: 0 0 10px #ff000041;
-  padding: 10px 0;
-  backdrop-filter: blur(5px); 
-  z-index: 1;
-}
-
-    .scroll-text {
-      display: inline-block;
-      white-space: nowrap;
-      color: #ffffff;
-      font-weight: bold;
-      font-size: 1em;
-      text-shadow: 0 0 5px #000000;
-      animation: scrollBanner 25s linear infinite;
+    /* Container */
+    .container {
+      width: 92%;
+      max-width: var(--max-width);
+      margin: 0 auto;
     }
 
-    @keyframes scrollBanner {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+    /* Utility: Sections */
+    section { padding: 4.5rem 0; }
+    .section-tight { padding: 2.5rem 0; }
+    .section-hero { padding: 6rem 0 4rem; }
+
+    /* Utility: Flex & Grid */
+    .flex { display: flex; gap: var(--gap); }
+    .flex-center { display: flex; align-items: center; justify-content: center; }
+    .grid { display: grid; gap: var(--gap-lg); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    @media (max-width: 900px) {
+      .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: url('download.png') no-repeat center bottom;
-      background-size: contain;
-      z-index: -2;
+    @media (max-width: 640px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
     }
 
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 40%, rgba(255, 0, 0, 0.205) 55%, rgba(255, 0, 0, 0.137) 75%, #fc020286 100%);
-      z-index: -2;
+    /* Utility: Text */
+    .muted { color: var(--text-muted); }
+    .dim { color: var(--text-dim); }
+
+    /* Utility: Card */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius-md);
+      padding: var(--pad-lg);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px var(--shadow-blue), 0 4px 12px var(--shadow-cyan);
+      border-color: var(--line-strong);
     }
 
-   
-    .top-nav {
-      display: flex;
-      justify-content: space-between;
+    /* Utility: Badges */
+    .badge {
+      display: inline-flex;
       align-items: center;
-      padding: 15px 30px;
-      background-color: rgba(0, 0, 0, 0.7);
-      border-bottom: 1px solid #ff00008e;;
-      box-shadow: 0 4px 15px #ff00007e;
-      z-index: 999;
-      position: relative;
+      gap: 0.5rem;
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, #141419, #1a1a22);
     }
-    .logo {
-      font-size: 1.8em;
-      font-weight: bold;
-      color: #ffffff;
-      text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
-    }
+    .badge-pink { color: #c4c5ff; border-color: #3a2732; }
+    .badge-cyan { color: #c8f6ff; border-color: #19333a; }
+    .badge-lime { color: #e9ffc4; border-color: #2d3a19; }
 
-    nav {
-      display: flex;
-      gap: 20px;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      text-shadow: 0 0 5px #fff;
-    }
-
-    nav a:hover {
-      color: #ffff;
-      text-shadow: 0 0 8px #ffff;
-    }
-
-    .rating {
-      font-size: 0.9em;
-      text-shadow: 0 0 5px #fff;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 100px 20px 40px;
-    }
-
-    .hero h1 {
-      font-size: 3em;
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 1.2em;
-      color: #ccc;
-      margin-bottom: 40px;
-    }
-.review-scroll-wrapper {
-  overflow: hidden;
-  width: 100%;
-  margin-top: 30px;
-}
-
-.review-scroll {
-  display: flex;
-  animation: scrollReviews 40s linear infinite;
-  gap: 15px;
-  padding: 20px;
-}
-
-
-.review-card {
-  min-width: 220px;
-  background: radial-gradient(to bottom right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 40%, rgba(255, 0, 0, 0.397) 55%, rgba(146, 7, 7, 0.7) 75%, #c00505b0 100%);
-  color: #fff;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px #ff00007e;
-  font-style: bold;
-  text-align: center;
-  flex-shrink: 0;
-  text-shadow: 0 0 5px #fff;
-}
-
-
-
-
-@keyframes scrollReviews {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-
-.stars {
-  display: block;
-  margin-top: 8px;
-  color: #ffffff;
-  text-shadow: 0 0 5px #ff0000;
-  font-size: 1em;
-}
-
-.btn {
-  background-color: #111;
-  color: #fff;
-  border: 1px solid #ffff;
-  padding: 12px 24px;
-  margin: 10px;
-  text-shadow: 0 0 5px #ffff;
-  box-shadow: 0 0 10px #ff00007e;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 30px; 
-}
-
-
-    .btn:hover {
-      background-color: #ff000083;
-      color: #ffffff;
-      box-shadow: 0 0 20px #ffffff;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2em;
-      margin-top: 60px;
-      text-shadow: 0 0 8px #ffff;
-    }
-
-    .product-scroll-wrapper {
-      overflow: hidden;
-      width: 100%;
-      margin-top: 30px;
-    }
-
-    .product-scroll {
-      display: flex;
-      animation: scrollProducts 40s linear infinite;
-      gap: 15px;
-      padding: 20px;
-    }
-
-    .typewriter {
-  overflow: hidden;
-  border-right: .15em solid rgb(255, 10, 10); /* Cursor effect */
-  white-space: nowrap;
-  margin: 0 auto;
-  letter-spacing: .15em;
-  animation: typing 2.5s steps(30, end), blink-caret .75s step-end infinite;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 50% }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  100% { border-color: rgba(255, 0, 0, 0.568) }
-}
-
-
-    .product-card {
-      min-width: 180px;
-      height: 160px;
-      background: radial-gradient(to bottom right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 40%, rgba(255, 0, 0, 0.397) 55%, rgba(146, 7, 7, 0.7) 75%, #c00505b0 100%);
-      color: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #ff00007e;
-      display: flex;
+    /* Utility: Buttons */
+    .btn {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      text-align: center;
-      flex-shrink: 0;
+      gap: 0.6rem;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.25rem;
+      font-weight: 700;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+      position: relative;
+      isolation: isolate;
     }
-
-    @keyframes scrollProducts {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
+    .btn-primary {
+      color: #ffffff;
+      background: var(--accent);
+      box-shadow: 0 10px 24px var(--shadow-blue);
     }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-outline {
+      color: #ffffff;
+      background: transparent;
+      border: 1px solid var(--line-strong);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 6px 16px var(--shadow-cyan);
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.12); }
 
-    .reverse-review-cards{
+    /* Focus styles */
+    :focus-visible { outline: var(--focus-outline); outline-offset: 2px; }
+
+    /* -----------------------------
+       Navbar
+       ----------------------------- */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(10,10,14,0.55);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .nav-inner {
       display: flex;
-      animation: reversescrollReviews 40s linear infinite;
-      gap: 15px;
-      padding: 20px;
-       }
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      font-size: 1.05rem;
+    }
+    .brand .logo-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      box-shadow: 0 0 12px var(--shadow-blue);
+    }
+    .nav-links {
+      display: flex; gap: var(--gap);
+    }
+    .nav-links a {
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      transition: background var(--transition), color var(--transition);
+    }
+    .nav-links a:hover { background: rgba(255,255,255,0.07); color: #fff; }
 
-     @keyframes reversescrollReviews{
-      0% { transform: translateX(0); }
-      100% { transform: translateX(100%); }
+    /* Mobile Menu Toggle (CSS-only) */
+    .nav-toggle { display: none; }
+    .nav-toggle-label {
+      display: none;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-toggle-label { display: inline-flex; align-items: center; gap: 0.5rem; }
+      .nav-menu {
+        position: fixed; top: 60px; left: 0; right: 0;
+        background: rgba(10,10,14,0.85);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid var(--line-soft);
+        display: none;
+        padding: 1rem 0;
+      }
+      .nav-menu a {
+        display: block; padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--line-soft);
+        color: var(--text-muted);
+      }
+      .nav-toggle:checked ~ .nav-menu { display: block; }
     }
 
+    /* Spacer to account for fixed nav */
+    .nav-spacer { height: 64px; }
 
-    .footer {
+    /* -----------------------------
+       Hero
+       ----------------------------- */
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      display: grid;
+      place-items: center;
+      /* Glow gradient background */
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(1000px 400px at 20% 20%, rgba(255,255,255,0.06), transparent 70%),
+                  radial-gradient(800px 350px at 80% 40%, rgba(0,0,0,0.25), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
       text-align: center;
-      padding: 30px 0;
-      font-size: 0.9em;
-      text-shadow: 0 0 5px #fff;
-      background-color: rgba(0, 0, 0, 0.37);
-      margin-top: 60px;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, transparent, var(--bg-hero-overlay));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .eyebrow .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 10px var(--shadow-cyan);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin: 0.75rem 0 0.5rem;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: #f0f0f7;
+      opacity: 0.95;
+      margin: 0 0 1.25rem;
+    }
+    .hero-actions {
+      display: inline-flex; gap: var(--gap);
+      flex-wrap: wrap; justify-content: center;
+      margin-top: 1rem;
     }
 
-    @media (max-width: 768px) {
-      .top-nav {
-        flex-direction: column;
-        align-items: center;
-      }
+    /* -----------------------------
+       Marquee / Status strip
+       ----------------------------- */
+    .status-strip {
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(6px);
+    }
+    .status-inner {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--gap);
+      padding: 1rem 0;
+    }
+    .status-item {
+      display: flex; align-items: center; gap: var(--gap-sm);
+      border: 1px dashed var(--line-soft);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      background: linear-gradient(180deg, #111217, #151520);
+    }
+    .status-ok { color: #A3FF12; }
+    .status-warn { color: #FFD166; }
+    .status-off { color: #ff0000; }
+    .status-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 14px currentColor;
+    }
+    .status-label { color: var(--text-muted); }
+    @media (max-width: 900px) {
+      .status-inner { grid-template-columns: 1fr; }
+    }
 
-      nav {
-        flex-direction: column;
-        align-items: center;
-      }
+    /* -----------------------------
+       Marketplace grid
+       ----------------------------- */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--gap);
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .section-header h2 {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      letter-spacing: -0.3px;
+    }
+    .section-sub { color: var(--text-muted); }
 
-      .product-card {
-        min-width: 140px;
-        height: 140px;
-        font-size: 0.9em;
-      }
-      
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--gap-lg);
+    }
+    @media (max-width: 1200px) {
+      .market-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    @media (max-width: 1200px) {
+      .market-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 1200px) {
+      .market-grid { grid-template-columns: 1fr; }
+    }
+
+    .product-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, #151521, #16161A);
+      border: 1px solid var(--line-soft);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--line-strong);
+      box-shadow: 0 10px 26px var(--shadow-blue);
+    }
+    .product-media {
+      height: 120px;
+      background: linear-gradient(135deg, rgba(127,0,255,0.25), rgba(225,0,255,0.25));
+      border-bottom: 1px solid var(--line-soft);
+      display: grid; place-items: center;
+      color: #fff; font-weight: 800; letter-spacing: 0.8px;
+    }
+    .product-body { padding: var(--pad-lg); }
+    .product-title { font-weight: 700; letter-spacing: 0.2px; }
+    .product-price { margin-top: 0.35rem; color: var(--accent); font-weight: 800; }
+    .product-meta { margin-top: 0.75rem; color: var(--text-dim); font-size: 0.92rem; }
+    .product-actions { margin-top: 1rem; display: flex; gap: var(--gap); }
+
+    /* -----------------------------
+       Stats strip
+       ----------------------------- */
+    .stats {
+      background: linear-gradient(180deg, #12121a, #171723);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius-lg);
+      padding: var(--pad-lg);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: var(--gap-lg);
+    }
+    @media (max-width: 900px) {
+      .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 560px) {
+      .stats { grid-template-columns: 1fr; }
+    }
+    .stat {
+      background: linear-gradient(180deg, #14141e, #1a1a24);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius-md);
+      padding: var(--pad);
+      text-align: center;
+    }
+    .stat .kpi { font-size: 1.75rem; font-weight: 800; letter-spacing: 0.5px; }
+    .stat .label { color: var(--text-muted); margin-top: 0.35rem; }
+
+    /* -----------------------------
+       Testimonials
+       ----------------------------- */
+    .testimonials {
+      display: grid; gap: var(--gap-lg);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @media (max-width: 900px) {
+      .testimonials { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .testimonials { grid-template-columns: 1fr; }
+    }
+    .testimonial {
+      background: linear-gradient(180deg, #141419, #1a1a22);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius-md);
+      padding: var(--pad-lg);
+      position: relative;
+    }
+    .testimonial::before {
+      content: '“';
+      position: absolute; top: 0.35rem; left: 0.75rem;
+      font-size: 3rem; color: rgba(255,255,255,0.08);
+      line-height: 1; font-weight: 800;
+    }
+    .testimonial .body { color: #f4f4f9; }
+    .testimonial .meta { margin-top: 0.75rem; color: var(--text-muted); font-size: 0.9rem; }
+
+    /* -----------------------------
+       Pricing
+       ----------------------------- */
+    .pricing-grid {
+      display: grid; gap: var(--gap-lg);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+    .plan {
+      background: linear-gradient(180deg, #14141e, #1a1a24);
+      border: 2px solid transparent;
+      border-radius: var(--radius-lg);
+      padding: calc(var(--pad-lg) + 0.5rem);
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+    .plan:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 26px var(--shadow-blue);
+    }
+    .plan h3 { margin-bottom: 0.4rem; }
+    .price {
+      font-size: 2rem; font-weight: 800;
+      color: var(--accent);
+      margin: 0.75rem 0 1rem;
+    }
+    .features-list { color: var(--text-muted); }
+    .features-list li {
+      display: flex; align-items: center; gap: var(--gap-sm);
+      padding: 0.4rem 0;
+      border-bottom: 1px dashed var(--line-soft);
+    }
+    .features-list li:last-child { border-bottom: 0; }
+    .check {
+      width: 18px; height: 18px; border-radius: 4px;
+      background: linear-gradient(180deg, #17171f, #1e1e2a);
+      border: 1px solid var(--line-strong);
+      display: grid; place-items: center;
+      color: var(--accent-3);
+      font-size: 0.9rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    /* -----------------------------
+       FAQ (CSS accordion)
+       ----------------------------- */
+    .faq {
+      display: grid; gap: var(--gap);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (max-width: 900px) {
+      .faq { grid-template-columns: 1fr; }
+    }
+    .faq-item {
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, #14141a, #1a1a22);
+      overflow: hidden;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      padding: var(--pad-lg);
+      font-weight: 700;
+      position: relative;
+      list-style: none;
+    }
+    .faq-item summary::marker { content: ''; }
+    .faq-item summary::after {
+      content: '+';
+      position: absolute; right: 1rem; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-weight: 800;
+    }
+    .faq-item[open] summary::after { content: '–'; }
+    .faq-item .answer {
+      padding: 0 var(--pad-lg) var(--pad-lg);
+      color: var(--text-muted);
+      border-top: 1px dashed var(--line-soft);
+    }
+
+    /* -----------------------------
+       Status banner
+       ----------------------------- */
+    .status-banner {
+      display: flex; align-items: center; gap: var(--gap);
+      padding: var(--pad);
+      border: 1px dashed var(--line-soft);
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, #12121a, #151520);
+    }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.75rem; border-radius: 999px;
+      border: 1px solid var(--line-soft);
+      color: #c8f6ff;
+      background: linear-gradient(180deg, #111217, #161620);
+    }
+    .status-pill .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #00E5FF; box-shadow: 0 0 12px #00E5FF; }
+
+    /* -----------------------------
+       Discord CTA
+       ----------------------------- */
+    .cta {
+      text-align: center;
+      background: linear-gradient(135deg, var(--gradient-end), var(--gradient-start));
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta .container { position: relative; z-index: 1; }
+    .cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(600px 240px at 20% 40%, rgba(255,255,255,0.08), transparent 70%);
+    }
+    .cta h2 { font-size: clamp(1.35rem, 3vw, 1.85rem); margin-bottom: 0.5rem; }
+    .cta p { color: #f5f5fb; margin-bottom: 1rem; }
+
+    /* -----------------------------
+       Footer
+       ----------------------------- */
+    .footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--line-soft);
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--gap-lg);
+      padding: 3rem 0;
+    }
+    @media (max-width: 900px) {
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+    .footer h4 { margin-bottom: 0.75rem; }
+    .footer ul li { padding: 0.35rem 0; color: var(--text-muted); }
+    .footer ul li a:hover { color: #fff; }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 0; border-top: 1px solid var(--line-soft);
+      color: var(--text-dim);
+      flex-wrap: wrap; gap: var(--gap);
+    }
+    .copyright { color: var(--text-muted); }
+
+    /* -----------------------------
+       Media queries (extras)
+       ----------------------------- */
+    @media (max-width: 1040px) {
+      .hero-content { padding: 1.5rem; }
+      .brand { font-size: 1rem; }
+    }
+    @media (max-width: 560px) {
+      .eyebrow { font-size: 0.85rem; }
+      .btn { width: 100%; max-width: 420px; }
     }
   </style>
 </head>
+
 <body>
-  <div class="background"></div>
-  <div class="overlay"></div>
- <!-- Scrolling Banner -->
-  <div class="scroll-banner">
-    <div class="scroll-text">
-| MWII/MWIII LOBBIES COMING SOON | CSII CHAIR STILL UNDETECTED | MWI AIO NOW AVAILIABLE | CAMO HARD UNLOCKS AVAILIABLE
+
+  <!-- ============================= -->
+  <!-- Navbar                        -->
+  <!-- ============================= -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="brand">
+        <span class="logo-dot" aria-hidden="true"></span>
+        <span>SWAYD SOLUTIONS</span>
+      </a>
+
+      <nav aria-label="Primary">
+        <div class="nav-links">
+          <a href="#store">Store</a>
+          <a href="#status">Status</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#features">Features</a>
+          <a href="#faq">FAQ</a>
+          <a href="#discord">Discord</a>
+          <a href="#login" class="btn btn-outline" style="padding:0.5rem 0.9rem;">Login</a>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle menu"/>
+        <label for="nav-toggle" class="nav-toggle-label">
+          <span>Menu</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M3 6h18M3 12h18M3 18h18" stroke="#B8B8C6" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </label>
+        <div class="nav-menu" role="dialog" aria-label="Mobile menu">
+          <a href="#store">Store</a>
+          <a href="#status">Status</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#features">Features</a>
+          <a href="#faq">FAQ</a>
+          <a href="#discord">Discord</a>
+          <a href="#login">Login</a>
+        </div>
+      </nav>
     </div>
-  </div>
+  </header>
+  <div class="nav-spacer" aria-hidden="true"></div>
 
-  <!-- Navigation -->
-  <div class="top-nav">
-    <div class="logo">S W A Y D</div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Products</a>
-      <a href="#">Reviews</a>
-      <a href="#">Contact</a>
-    </nav>
-    <div class="rating">
-      <span><i class="fas fa-star"></i> 5</span>
-      <span><i class="fas fa-star"></i> 5</span>
-      <span><i class="fas fa-star"></i> 5</span>
-      <span><i class="fas fa-star"></i> 5</span>
-      <span>REVIEWS</span>
+  <!-- ============================= -->
+  <!-- Hero                          -->
+  <!-- ============================= -->
+  <section class="hero section-hero" id="home">
+    <div class="container hero-content">
+      <div class="eyebrow">
+        <span class="dot"></span>
+        <strong>Trusted marketplace</strong>
+        <span class="dim">• Undetectable tools • 24/7 support</span>
+      </div>
+
+      <h1>Undetectable performance with a Glow-level experience</h1>
+      <p>Premium tools, HWID spoofers, and feature-rich overlays. Built for reliability, backed by fast support, wrapped in a neon-modern design.</p>
+
+      <div class="hero-actions">
+        <a href="#store" class="btn btn-primary">Browse store</a>
+        <a href="#discord" class="btn btn-outline">Join Discord</a>
+      </div>
     </div>
-  </div>
-
-  
-
-  <!-- Hero Section -->
-  <div class="typewriter hero">
-    <h1>WELCOME TO SWAYD SOLUTIONS</h1>
-    <p>Secure. Fast. Undetected.</p>
-    <button class="btn"><i class="fa-solid fa-cart-shopping"></i> Shop Now</button>
   </section>
+
+  <!-- ============================= -->
+  <!-- Status strip                  -->
+  <!-- ============================= -->
+  <div class="status-strip">
+    <div class="container status-inner">
+      <div class="status-item">
+        <span class="status-dot status-ok" aria-hidden="true"></span>
+        <strong>All services operational</strong>
+        <span class="status-label">No incidents</span>
+      </div>
+      <div class="status-item">
+        <span class="status-dot status-ok" aria-hidden="true"></span>
+        <strong>Uptime</strong>
+        <span class="status-label">99.98% last 30 days</span>
+      </div>
+      <div class="status-item">
+        <span class="status-dot status-ok" aria-hidden="true"></span>
+        <strong>Response</strong>
+        <span class="status-label">Median 180ms</span>
+      </div>
+    </div>
   </div>
 
- <!-- Product Section -->
-<div class="section-title"> </div>
-<div class="product-scroll-wrapper">
-  <div class="product-scroll">
-    <div class="product-card">BOT LOBBIES</div>
-    <div class="product-card">MWI AIO</div>
-    <div class="product-card">CSII CHAIR</div>
-    <div class="product-card">CAMO HARD UNLOCKS</div>
-    <div class="product-card">MWIII EXTERNAL</div>
-    
-    <!-- carousel of the product cards-->
-    <div class="product-card">BOT LOBBIES</div>
-    <div class="product-card">MWI AIO</div>
-    <div class="product-card">CSII CHAIR</div>
-    <div class="product-card">CAMO HARD UNLOCKS</div>
-    <div class="product-card">MWIII EXTERNAL</div>
-  </div>
-</div>
+  <!-- ============================= -->
+  <!-- Marketplace                   -->
+  <!-- ============================= -->
+  <section id="store">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2>Marketplace</h2>
+          <p class="section-sub">Choose a product to get started. Lifetime and day keys available.</p>
+        </div>
+        <div class="flex">
+          <span class="badge badge-cyan">Secure checkout</span>
+          <span class="badge badge-pink">Instant license delivery</span>
+          <span class="badge badge-lime">Global support</span>
+        </div>
+      </div>
 
-<!-- Reviews Section -->
-<div class="section-title">our reviews (using our Anonymous review system.)</div>
-<div class="review-scroll-wrapper">
-  <div class="review-scroll">
-    <div class="review-card">
-      "Amazing service!" – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-    </div>
-    <div class="review-card">
-      "Been using swayd for a month. Haven't been banned once" – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-    </div>
-    <div class="review-card">
-      "Highly recommend SWAYD." – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-    </div>
-    <div class="review-card">
-      "Great support." – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-    </div>
-    <div class="review-card">
-      "Worth every cent." – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-    </div>
-    <div class="review-card">
-      "Undetected and reliable." – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-    </div>
-    <div class="review-card">
-      "Got everything in the game with one press of a button" – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-    </div>
-    <div class="review-card">
-      "5 stars all the way." – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-    </div>
-    <div class="review-card">
-      "Only bought a week key, Will buy again!" – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-    </div>
-  </div>
-</div>
+      <div class="market-grid">
+        <!-- Product 1 -->
+        <article class="product-card">
+          <div class="product-media">BO6</div>
+          <div class="product-body">
+            <div class="product-title">Call Of Duty</div>
+            <div class="product-price">From $3.99</div>
+            <div class="product-meta">Aimbot, ESP, clean overlays, frequent updates.</div>
+            <div class="product-actions">
+              <a class="btn btn-primary" href="#">Buy key</a>
+              <a class="btn btn-ghost" href="#">Learn more</a>
+            </div>
+          </div>
+        </article>
 
-<!-- Reverse Reviews -->
-<div class="review-scroll-wrapper">
-  <div class="reverse-review-cards">
-    <div class="review-card">
-      "Amazing service!" – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-    </div>
-    <div class="review-card">
-      "Been using swayd for a month. Haven't been banned once" – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-    </div>
-    <div class="review-card">
-      "Highly recommend SWAYD." – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-    </div>
-    <div class="review-card">
-      "Great support." – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-    </div>
-    <div class="review-card">
-      "Worth every cent." – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-    </div>
-    <div class="review-card">
-      "Undetected and reliable." – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-    </div>
-    <div class="review-card">
-      "Got everything in the game with one press of a button" – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-    </div>
-    <div class="review-card">
-      "5 stars all the way." – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-    </div>
-    <div class="review-card">
-      "Only bought a week key, Will buy again!" – Anonymous<br>
-      <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-    </div>
-  </div>
-</div>
+        <!-- Product 2 -->
+        <article class="product-card">
+          <div class="product-media">Fortnite</div>
+          <div class="product-body">
+            <div class="product-title">Fortnite</div>
+            <div class="product-price">From $9.99</div>
+            <div class="product-meta">Smart aim, visibility toggles, stream-safe.</div>
+            <div class="product-actions">
+              <a class="btn btn-primary" href="#">Buy key</a>
+              <a class="btn btn-ghost" href="#">Learn more</a>
+            </div>
+          </div>
+        </article>
 
+        <!-- Product 3 -->
+        <article class="product-card">
+          <div class="product-media">Spoofer</div>
+          <div class="product-body">
+            <div class="product-title">HWID Spoofer</div>
+            <div class="product-price">From $49.99</div>
+            <div class="product-meta">Persistent spoof, clean restore, hardware profiles.</div>
+            <div class="product-actions">
+              <a class="btn btn-primary" href="#">Buy key</a>
+              <a class="btn btn-ghost" href="#">Learn more</a>
+            </div>
+          </div>
+        </article>
 
-  <!-- Footer -->
-  <div class="footer">
-    &copy;  SWAYD SOLUTIONS. All rights reserved.
-  </div>
+        <!-- Product 4 -->
+        <article class="product-card">
+          <div class="product-media">Valorant</div>
+          <div class="product-body">
+            <div class="product-title">Valorant — External</div>
+            <div class="product-price">From $39.99</div>
+            <div class="product-meta">Subtle assist, radar, visuals tuned for safety.</div>
+            <div class="product-actions">
+              <a class="btn btn-primary" href="#">Buy key</a>
+              <a class="btn btn-ghost" href="#">Learn more</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 5 -->
+        <article class="product-card">
+          <div class="product-media">Other</div>
+          <div class="product-body">
+            <div class="product-title">Other titles</div>
+            <div class="product-price">From $9.99</div>
+            <div class="product-meta">A selection of external tools for popular games.</div>
+            <div class="product-actions">
+              <a class="btn btn-primary" href="#">Browse all</a>
+              <a class="btn btn-ghost" href="#">Learn more</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- Stats                         -->
+  <!-- ============================= -->
+  <section class="section-tight">
+    <div class="container stats" aria-label="Key metrics">
+      <div class="stat">
+        <div class="kpi">18k+</div>
+        <div class="label">Keys issued</div>
+      </div>
+      <div class="stat">
+        <div class="kpi">4.9/5</div>
+        <div class="label">Average rating</div>
+      </div>
+      <div class="stat">
+        <div class="kpi">99.98%</div>
+        <div class="label">Uptime (30 days)</div>
+      </div>
+      <div class="stat">
+        <div class="kpi">180ms</div>
+        <div class="label">Median response</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- Reviews / Testimonials        -->
+  <!-- ============================= -->
+  <section id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2>Recent reviews</h2>
+          <p class="section-sub">What customers are saying across products and tiers.</p>
+        </div>
+        <div class="badge badge-cyan">Verified purchases</div>
+      </div>
+
+      <div class="testimonials">
+        <article class="testimonial">
+          <div class="body">[BO6] External AIO (Day Key) — flawless setup, clean visuals, and updates dropped fast. Good support too.</div>
+          <div class="meta">Sep 20, 2025 — User #78214</div>
+        </article>
+        <article class="testimonial">
+          <div class="body">[Perm] Spoofer (One Time Use) — did exactly what it said; clean profile after. Instructions were simple.</div>
+          <div class="meta">Sep 20, 2025 — User #54833</div>
+        </article>
+        <article class="testimonial">
+          <div class="body">[BO6] Black External (Lifetime) — worth it. Subtle aim assistance and radar kept things natural.</div>
+          <div class="meta">Sep 19, 2025 — User #23100</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- Features                      -->
+  <!-- ============================= -->
+  <section id="features">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2>Why choose swayd?</h2>
+          <p class="section-sub">Reliability, safety-conscious design, and fast support — wrapped in a Glow-grade UI.</p>
+        </div>
+        <div class="flex">
+          <span class="badge badge-pink">Privacy-first</span>
+          <span class="badge badge-cyan">Secure delivery</span>
+        </div>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>24/7 support</h3>
+          <p class="muted">Fast help when you need it, with detailed guides and friendly staff.</p>
+        </div>
+        <div class="card">
+          <h3>Secure & trusted</h3>
+          <p class="muted">Delivery via secure channels, verified builds, minimal footprint.</p>
+        </div>
+        <div class="card">
+          <h3>Reliable performance</h3>
+          <p class="muted">Regular updates, stable overlays, tuned visuals for consistent results.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- Pricing                       -->
+  <!-- ============================= -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2>Pricing plans</h2>
+          <p class="section-sub">Start with a day key or go lifetime; instant delivery and support included.</p>
+        </div>
+        <div class="badge badge-lime">No hidden fees</div>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="plan">
+          <h3>Day key</h3>
+          <p class="dim">Try features with minimal commitment.</p>
+          <div class="price">$3.99</div>
+          <ul class="features-list">
+            <li><span class="check">✓</span> External overlays</li>
+            <li><span class="check">✓</span> Smart aim assist</li>
+            <li><span class="check">✓</span> Basic ESP visuals</li>
+            <li><span class="check">✓</span> Quick setup guide</li>
+          </ul>
+          <div class="flex" style="margin-top:1rem;">
+            <a class="btn btn-primary" href="#">Get day key</a>
+            <a class="btn btn-outline" href="#">View details</a>
+          </div>
+        </div>
+
+        <div class="plan">
+          <h3>Monthly</h3>
+          <p class="dim">Access features with ongoing updates.</p>
+          <div class="price">$19.99</div>
+          <ul class="features-list">
+            <li><span class="check">✓</span> Priority updates</li>
+            <li><span class="check">✓</span> Advanced ESP/radar</li>
+            <li><span class="check">✓</span> Stream-safe options</li>
+            <li><span class="check">✓</span> Support priority</li>
+          </ul>
+          <div class="flex" style="margin-top:1rem;">
+            <a class="btn btn-primary" href="#">Start monthly</a>
+            <a class="btn btn-outline" href="#">View details</a>
+          </div>
+        </div>
+
+        <div class="plan">
+          <h3>Lifetime</h3>
+          <p class="dim">Best value for long-term use and support.</p>
+          <div class="price">$39.99+</div>
+          <ul class="features-list">
+            <li><span class="check">✓</span> All features included</li>
+            <li><span class="check">✓</span> Lifetime updates</li>
+            <li><span class="check">✓</span> VIP support channel</li>
+            <li><span class="check">✓</span> Exclusive improvements</li>
+          </ul>
+          <div class="flex" style="margin-top:1rem;">
+            <a class="btn btn-primary" href="#">Buy lifetime</a>
+            <a class="btn btn-outline" href="#">View details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- Status banner                 -->
+  <!-- ============================= -->
+  <section id="status" class="section-tight">
+    <div class="container status-banner">
+      <div class="status-pill">
+        <span class="status-dot" aria-hidden="true"></span>
+        <strong>Operational</strong>
+      </div>
+      <div class="muted">All systems running. No scheduled maintenance.</div>
+      <div class="flex" style="margin-left:auto; gap:0.5rem;">
+        <a class="btn btn-ghost" href="#">View status page</a>
+        <a class="btn btn-outline" href="#">Subscribe updates</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- FAQ                           -->
+  <!-- ============================= -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2>Frequently asked questions</h2>
+          <p class="section-sub">Answers to common questions about keys, delivery, and support.</p>
+        </div>
+        <div class="badge badge-cyan">Updated regularly</div>
+      </div>
+
+      <div class="faq">
+        <details class="faq-item">
+          <summary>How fast is key delivery after purchase?</summary>
+          <div class="answer">Delivery is instant via the store flow and shown in your dashboard. You’ll also receive an email confirmation with instructions.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do you offer support channels?</summary>
+          <div class="answer">Yes. We provide 24/7 support through our Discord channels and ticketing system. Priority is available for monthly and lifetime tiers.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I upgrade from day key to monthly or lifetime?</summary>
+          <div class="answer">Absolutely. You can upgrade in your dashboard and the system will prorate based on recent purchase time windows.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>What platforms are supported?</summary>
+          <div class="answer">Windows is primarily supported for external overlays and tools. Documentation contains full setup details and requirements.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- Discord CTA                   -->
+  <!-- ============================= -->
+  <section id="discord" class="cta">
+    <div class="container">
+      <h2>Join the Swayd solutions community</h2>
+      <p>Get real-time updates, setup help, and connect with other users.</p>
+      <div class="flex-center" style="gap:1rem;">
+        <a class="btn btn-primary" href="#">Join Discord</a>
+        <a class="btn btn-outline" href="#">Read docs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- Footer                        -->
+  <!-- ============================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <!-- Column: Brand -->
+      <div>
+        <div class="brand" style="margin-bottom:0.75rem;">
+          <span class="logo-dot" aria-hidden="true"></span>
+          <span>SWAYD SOLUTIONS</span>
+        </div>
+        <p class="muted">A Glow-inspired, modern interface for a fast, reliable marketplace experience.</p>
+        <div style="margin-top:1rem;" class="flex">
+          <span class="badge badge-cyan">Secure checkout</span>
+          <span class="badge badge-pink">Instant delivery</span>
+        </div>
+      </div>
+
+      <!-- Column: Store -->
+      <div>
+        <h4>Store</h4>
+        <ul>
+          <li><a href="#store">Black Ops 6</a></li>
+          <li><a href="#store">Fortnite</a></li>
+          <li><a href="#store">Valorant</a></li>
+          <li><a href="#store">HWID Spoofers</a></li>
+          <li><a href="#store">Other titles</a></li>
+        </ul>
+      </div>
+
+      <!-- Column: Resources -->
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#faq">Docs & Guides</a></li>
+          <li><a href="#status">Status</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+
+      <!-- Column: Company -->
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Refund policy</a></li>
+          <li><a href="#discord">Discord</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#login">Login</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div class="copyright">© 2025 SWAYD SOLUTIONS. All rights reserved.</div>
+      <div class="flex">
+        <a class="dim" href="#">Privacy</a>
+        <span class="dim">•</span>
+        <a class="dim" href="#">Terms</a>
+        <span class="dim">•</span>
+        <a class="dim" href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================= -->
+  <!-- Optional: Semantic anchors    -->
+  <!-- ============================= -->
+  <a id="login" href="#" aria-hidden="true" style="position:absolute; top:-100px;"></a>
+
 </body>
 </html>
