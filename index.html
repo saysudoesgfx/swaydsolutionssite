@@ -40,7 +40,7 @@
       --bg-dark:        #0E0E10;         /* page background */
       --bg-card:        #16161A;         /* card background */
       --bg-elev-2:      #1E1E24;         /* slightly lighter elevation */
-      --bg-hero-overlay:#3700ff2c;       /* overlay alpha for hero content */
+      --bg-hero-overlay:#042696c7;       /* overlay alpha for hero content */
 
       /* Typography */
       --text-primary:   #FFFFFF;
@@ -54,9 +54,9 @@
 
       /* Shadows & Lines */
       --line-soft:      #242433;
-      --line-strong:    #0000ca8c;
+      --line-strong:    #0228ff9a;
       --shadow-blue:    rgba(0, 38, 255, 0.3);
-      --shadow-cyan:    rgba(25, 0, 255, 0.25);
+      --shadow-cyan:    rgba(14, 6, 85, 0.25);
 
       /* Sizing */
       --max-width:      1200px;
@@ -176,7 +176,7 @@
     }
     .btn-primary {
       color: #ffffff;
-      background: var(--accent);
+      background: #091b6b;
       box-shadow: 0 10px 24px var(--shadow-blue);
     }
     .btn-primary:hover { transform: translateY(-2px); }
@@ -186,14 +186,14 @@
       border: 1px solid var(--line-strong);
     }
     .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0);
       box-shadow: 0 6px 16px var(--shadow-cyan);
     }
     .btn-ghost {
       background: rgba(255,255,255,0.08);
       color: #fff;
     }
-    .btn-ghost:hover { background: rgba(255,255,255,0.12); }
+    .btn-ghost:hover { background: rgba(53, 0, 247, 0.39); }
 
     /* Focus styles */
     :focus-visible { outline: var(--focus-outline); outline-offset: 2px; }
@@ -206,7 +206,7 @@
   white-space: nowrap;
   margin: 0 auto;
   letter-spacing: .15em;
-  animation: typing 3.5s steps(30, end), blink-caret .75s step-end infinite;
+  animation: typing 2.5s steps(30, end), blink-caret .75s step-end infinite;
 }
 
 @keyframes typing {
@@ -219,8 +219,8 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
-      background: rgba(10, 10, 14, 0.082);
-      backdrop-filter: blur(10px);
+      background: rgba(33, 2, 121, 0.322);
+      backdrop-filter: blur(5px);
       border-bottom: 1px solid var(--line-soft);
     }
     .nav-inner {
@@ -289,18 +289,23 @@
        Hero
        ----------------------------- */
     .hero {
-      position: relative;
-      min-height: 85vh;
-      display: grid;
-      place-items: center;
-      /* Glow gradient background */
-      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      height: 100vh; 
+      background-image: url('WARZONE_ON_THE_MARKET.png');
+      background-size: cover; 
+      background-position: center; 
+      background-repeat: no-repeat; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
     }
+    
     .hero::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(1000px 400px at 20% 20%, rgba(0, 38, 255, 0.281), transparent 70%),
-                  radial-gradient(800px 350px at 80% 40%, rgba(0,0,0,0.25), transparent 70%);
+      background: linear-gradient(1000px 400px at 20% 20%, rgba(0, 38, 255, 0.281), transparent 70%),
+                  linear-gradient(800px 350px at 80% 40%, rgba(0,0,0,0.25), transparent 70%);
       pointer-events: none;
     }
     .hero-content {
@@ -310,7 +315,7 @@
       text-align: center;
       padding: 2rem;
       border-radius: var(--radius-lg);
-      background: linear-gradient(180deg, transparent, var(--bg-hero-overlay));
+      background: linear-gradient(180deg, var(--bg-hero-overlay));
       border: 1px solid rgba(25, 0, 255, 0.507);
     }
     .eyebrow {
@@ -641,7 +646,7 @@
     .cta .container { position: relative; z-index: 1; }
     .cta::before {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(600px 240px at 20% 40%, rgba(255,255,255,0.08), transparent 70%);
+      background: radial-gradient(600px 240px at 20% 40%, rgba(20, 1, 197, 0.08),);
     }
     .cta h2 { font-size: clamp(1.35rem, 3vw, 1.85rem); margin-bottom: 0.5rem; }
     .cta p { color: #f5f5fb; margin-bottom: 1rem; }
@@ -1145,4 +1150,3 @@
 
 </body>
 </html>
-
